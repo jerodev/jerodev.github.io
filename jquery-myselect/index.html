@@ -2,8 +2,21 @@
 <html>
     <head>
         <title>jQuery MySelect - Your own multiselect library</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/jquery-myselect.js"></script>
         <link rel="stylesheet" href="css/bootswatch-paper.min.css" />
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/jquery-myselect.css" />
+        <script>
+            $(function(){
+                
+                $("#example_1").myselect({ 
+                    width: '100%',
+                    placeholder: 'Countries in Europe'
+                });
+                
+            })
+        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -14,8 +27,8 @@
                         <h2>Your own multiselect library</h2>
                     </header>
                     <div class="btn-group-vertical">
-                        <a href="#" class="btn btn-default">Introduction</a>
-                        <a href="#" class="btn btn-default">Examples</a>
+                        <a href="#introduction" class="btn btn-default">Introduction</a>
+                        <a href="#examples" class="btn btn-default">Examples</a>
                         <a href="#" class="btn btn-default">Options</a>
                         <a href="#" class="btn btn-default">Methods</a>
                         <a href="#" class="btn btn-default">FAQ</a>
@@ -24,27 +37,56 @@
             </div>
             <div class="col-sm-9" id="panel-right">
                 <div class="well">
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+                    <h3 name="introduction">Introduction</h3>
+                    <p>
+                        JQuery MySelect is yet another multiselect library. This library tries to be simple
+                        and easy to integrate in your own project. Everything can be changed by either 
+                        changing the css (or less) or setting options when calling the library form your
+                        javascript code.
+                    </p>
                     
-                    <p>Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. </p>
-                    
-                    <p>Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. </p>
-                    
-                    <p>Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
-                    
-                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
-                    
-                    <p>Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. </p>
-                    
-                    <p>Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. </p>
-                    
-                    <p>Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
-                    
-                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
-
+                    <h3 name="examples">Examples</h3>
+                    <p>
+                        MySelect has different options that can change the appearance and the flow of the 
+                        plugin. These are some examples of what is possible.
+                    </p>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>Simple Select box</h4>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="example_1">
+                                <option value="Austria">Austria</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Croatia">Croatia</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Czech_Republic">Czech Republic</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Estonia">Estonia</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Hungary">Hungary</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Latvia">Latvia</option>
+                                <option value="Lithuania">Lithuania</option>
+                                <option value="Luxembourg">Luxembourg</option>
+                                <option value="Malta">Malta</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Romania">Romania</option>
+                                <option value="Slovakia">Slovakia</option>
+                                <option value="Slovenia">Slovenia</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="United_Kingdom ">United Kingdom </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

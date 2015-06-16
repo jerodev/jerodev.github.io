@@ -72,3 +72,10 @@ body, html {
     
     border: 1px solid #ddd;
 }
+
+#panel-right h3:first-of-type {
+    margin-top: 10px;
+}
+#panel-right h3:not(:first-of-type) {
+    margin-top: 50px;
+}
