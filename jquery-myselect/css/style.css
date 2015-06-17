@@ -79,3 +79,6 @@ body, html {
 #panel-right h3:not(:first-of-type) {
     margin-top: 50px;
 }
+#panel-right table code {
+    white-space: nowrap;
+}

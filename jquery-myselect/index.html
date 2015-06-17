@@ -10,7 +10,7 @@
         <script>
             $(function(){
                 
-                $("#example_1").myselect({ 
+                $(".example_1").myselect({ 
                     width: '100%',
                     placeholder: 'Countries in Europe'
                 });
@@ -57,7 +57,7 @@
                             <h4>Simple Select box</h4>
                         </div>
                         <div class="col-sm-4">
-                            <select id="example_1">
+                            <select class="example_1">
                                 <option value="Austria">Austria</option>
                                 <option value="Belgium">Belgium</option>
                                 <option value="Bulgaria">Bulgaria</option>
@@ -85,10 +85,142 @@
                                 <option value="Slovenia">Slovenia</option>
                                 <option value="Spain">Spain</option>
                                 <option value="Sweden">Sweden</option>
-                                <option value="United_Kingdom ">United Kingdom </option>
+                                <option value="United_Kingdom ">United Kingdom</option>
+                            </select>
+                            <br />
+                            <select class="example_1" data-placeholder="Countries in Europe (multiple)" multiple>
+                                <option value="Austria">Austria</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Croatia">Croatia</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Czech_Republic">Czech Republic</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Estonia">Estonia</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Hungary">Hungary</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Latvia">Latvia</option>
+                                <option value="Lithuania">Lithuania</option>
+                                <option value="Luxembourg">Luxembourg</option>
+                                <option value="Malta">Malta</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Romania">Romania</option>
+                                <option value="Slovakia">Slovakia</option>
+                                <option value="Slovenia">Slovenia</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="United_Kingdom ">United Kingdom</option>
                             </select>
                         </div>
+                        <div class="col-sm-8">
+<pre>
+$("select").myselect({ 
+    width: '100%',
+    placeholder: 'Countries in Europe'
+});
+</pre>
+                        </div>
                     </div>
+                    
+                    <h3 name="options">Options</h3>
+                    <p>
+                        There are a list of options you can use to modify the library to your needs. Here you can 
+                        find a list with all of them.
+                    </p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>caret_down</th>
+                                <td><code>"&#9660;"</code> <small>(&amp;#9660;)</small></td>
+                                <td>The icon used for the select caret pointing down</td>
+                            </tr>
+                            <tr>
+                                <th>caret_up</th>
+                                <td><code>"&#9650;"</code> <small>(&amp;#9650;)</small></td>
+                                <td>The icon used for the select caret pointing down</td>
+                            </tr>
+                            <tr>
+                                <th>closeOnClick</th>
+                                <td><code>false</code></td>
+                                <td>
+                                    Automaticly close the select box after selecting an item.
+                                    This is only available for single selects.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>container_height</th>
+                                <td><code>"34px"</code></td>
+                                <td>
+                                    The height of the container element. This is the element
+                                    the user clikcs on to open the dropdown.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>delimiter</th>
+                                <td><code>", "</code></td>
+                                <td>
+                                    This is the delimiter used to put between selected elements
+                                    in the container element.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>items_max_height</th>
+                                <td><code>"240px"</code></td>
+                                <td>
+                                    The max height of the items container. When the height of the
+                                    elements is higher than this, a scroll bar will appear on the
+                                    right side of the container.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>placeholder</th>
+                                <td><code>" - Nothing selected - "</code></td>
+                                <td>
+                                    This is the default placeholder for all select boxes when nothing
+                                    is selected. The value can be overridden for every select box by 
+                                    adding a <code>data-placeholder</code> to the select element.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>placeholder_x_selected</th>
+                                <td><code>"# selected"</code></td>
+                                <td>
+                                    The placeholder when more then <code>x_selected_after</code> elements
+                                    are selected. The <code>#</code> in the string gets replaced by the 
+                                    number of selected elements.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>width</th>
+                                <td><code>"240px"</code></td>
+                                <td>
+                                    The width for both the container and the item container.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>x_selected_after</th>
+                                <td><code>4</code></td>
+                                <td>
+                                    The amount of elements that needs to be selected before 
+                                    <code>placeholder_x_selected</code> is displayed.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
