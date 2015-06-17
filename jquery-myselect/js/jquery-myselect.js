@@ -5,7 +5,7 @@
     /**
      *  The default options for this plugin
      */
-    var settings = {
+    var defaults = {
         caret_down: "&#9660;",
         caret_up: "&#9650;",
         closeOnClick: false,
@@ -15,7 +15,11 @@
         placeholder: " - Nothing selected - ",
         placeholder_x_selected: "# selected",
         width: "240px",
-        x_selected_after: 4
+        x_selected_after: 4,
+        
+        onChange: null,
+        onRender: null,
+        onRendered: null,
     };
 
 
@@ -25,7 +29,7 @@
     $.fn.myselect = function( options ){
         
         // Extend the provided settings
-        settings = $.extend( settings, options );
+        var settings = $.extend( settings, defaults, options );
         
         // Add body events for closing the dropdown on blur
         $(document).unbind( 'click' );
@@ -33,6 +37,12 @@
         
         // Make a new select box for each element
         return this.each(function() {
+            
+            // Call the render event
+            callCallback( settings.onRender, this );
+            
+            // Add the options to the select element
+            $( this ).data( 'myselect', settings );
             
             // Build a new selectbox
             var html = buildSelect( this, settings );
@@ -42,6 +52,9 @@
             
             // Add the code for the new selectbox
             html.insertAfter( this );
+            
+            // Call the rendered event
+            callCallback( settings.onRendered, this, html.get(0) );
             
         });
         
@@ -132,6 +145,7 @@
         
         // Get the container of this select
         var container = $( this );
+        var select = container.prev( 'select' );
         
         // Is the current container open?
         var open = container.is( '.open' );
@@ -141,7 +155,7 @@
         
         // Toggle the caret
         container.find( '.select-caret' )
-            .html( open ? settings.caret_down : settings.caret_up );
+            .html( open ? getSettings(select).caret_down : getSettings(select).caret_up );
         
         // Toggle the open class
         if ( open )
@@ -163,13 +177,13 @@
         {
             var container = $($select).next('.myselect-container');
             container.removeClass( 'open' );
-            container.find( '.select-caret' ).html( settings.caret_down );
+            container.find( '.select-caret' ).html( getSettings($select).caret_down );
         }
         else
         {
             $( ".myselect-container" ).each(function() {
                 $( this ).removeClass( 'open' );
-                $( this ).find( '.select-caret' ).html( settings.caret_down );
+                $( this ).find( '.select-caret' ).html( getSettings($(this).prev('select')).caret_down );
             });
         }
     }
@@ -183,65 +197,91 @@
         e.stopPropagation();
 
         // If this is not a multiselect, unselect all other options
-        var select = $( this ).closest( '.myselect-container' ).prev( 'select' );
-        var dit = $(this);
-        var option = select.find( 'option[value=' + $(this).data( 'value' ) + ']' )
-            .filter(function(){
-                return this.innerHTML == dit.text();
+        var $dit = $( this );
+        var $select = $dit.closest( '.myselect-container' ).prev( 'select' );
+        var $option = $select.find( 'option[value=' + $dit.data( 'value' ) + ']' )
+            .filter(function() {
+                return this.innerHTML == $dit.text();
             });
-        if ( option.siblings( '[selected]' ).length > 0 && !select.is( '[multiple]' ) )
+        if ( $option.siblings( '[selected]' ).length > 0 && !$select.is( '[multiple]' ) )
         {
-            option.siblings().removeAttr( 'selected' );
-            $(this).siblings().removeClass( 'selected' );
+            $option.siblings().removeAttr( 'selected' );
+            $dit.siblings().removeClass( 'selected' );
         }
         
         // Toggle the active class
-        $( this ).toggleClass( 'selected' );
+        $dit.toggleClass( 'selected' );
         
         // toggle the selected property in the select
-        if ( option.is( '[selected]' ) )
+        if ( $option.is( '[selected]' ) )
         {
-            option.removeAttr( 'selected' ).prop( 'selected', false );
+            $option.removeAttr( 'selected' ).prop( 'selected', false );
         }
         else
         {
-            option.attr( 'selected', 'selected' ).prop( 'selected', true );
+            $option.attr( 'selected', 'selected' ).prop( 'selected', true );
         }
         
         // Edit the selected items in the container placeholder
-        var options = select.find( 'option[selected]' );
-        var content = $( this ).closest( '.myselect-container' ).find( '.content' );
-        if ( options.length )
+        var $options = $select.find( 'option[selected]' );
+        var $content = $dit.closest( '.myselect-container' ).find( '.content' );
+        if ( $options.length )
         {
             // Display 'x selected' after y elements have been selected
-            if (options.length <= settings.x_selected_after)
+            if ( $options.length <= getSettings($select).x_selected_after )
             {
-                content.find("span").text( $.map( options, function( o ) { return o.innerHTML; }).join( settings.delimiter ) );
+                $content.find("span").text( $.map( $options, function( o ) { return o.innerHTML; }).join( getSettings($select).delimiter ) );
             }
             else
             {
-                content.find("span").text(settings.placeholder_x_selected.replace(/#/, options.length));
+                $content.find("span").text( getSettings($select).placeholder_x_selected.replace( /#/, $options.length ) );
             }
             
             
-            content.removeClass( 'empty' );
+            $content.removeClass( 'empty' );
         }
         else
         {
-            content.find("span").text( getPlaceholder( select ) );
-            content.addClass( 'empty' );
+            $content.find("span").text( getPlaceholder( $select ) );
+            $content.addClass( 'empty' );
         }
         
-        if (settings.closeOnClick && !select.is( '[multiple]' ))
-            closeSelects( select );
+        // Close the selectbox if there is a close on click
+        if ( getSettings($select).closeOnClick && !$select.is( '[multiple]' ) )
+            closeSelects( $select );
+            
+        // Call the onchange event
+        callCallback( getSettings($select).onChange, $select.get( 0 ), $select.next( '.myselect-container' ).get( 0 ) );
     }
     
     
+    /**
+     *  Get the placeholder for this select element
+     */
     function getPlaceholder( $select ) {
         if ( $select.attr( 'data-placeholder' ) )
             return $select.data( 'placeholder' );
         else
-            return settings.placeholder;
+            return getSettings($select).placeholder;
+    }
+    
+    
+    /**
+     *  Call a callback function, if it exists
+     */
+    function callCallback( callback, select, container ) {
+        // If this callback is set, execute it!
+        if ( callback )
+            callback( select, container );
+    }
+    
+    
+    /**
+     *  Get the options for a certain select box
+     */
+    function getSettings( select ) {
+        // Get the options object
+        return $(select).data('myselect');
     }
 
 }(jQuery));
