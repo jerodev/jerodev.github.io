@@ -10,12 +10,22 @@
         <script>
             $(function(){
                 
+                // Scroll navigation
+                $(".btn-group-vertical a[href^=#]").click(function(){
+                    var name = $(this).attr("href").replace(/#/, '');
+                    
+                    $("html, body").animate({ 
+                        scrollTop: $("h3[name='" + name + "']").offset().top - 25 
+                    }, 500);
+                });
+                
+                // First example
                 $(".example_1").myselect({ 
                     width: '100%',
                     placeholder: 'Countries in Europe'
                 });
                 
-            })
+            });
         </script>
     </head>
     <body>
@@ -31,9 +41,9 @@
                     <div class="btn-group-vertical">
                         <a href="#introduction" class="btn btn-default">Introduction</a>
                         <a href="#examples" class="btn btn-default">Examples</a>
-                        <a href="#" class="btn btn-default">Options</a>
-                        <a href="#" class="btn btn-default">Methods</a>
-                        <a href="#" class="btn btn-default">FAQ</a>
+                        <a href="#options" class="btn btn-default">Options</a>
+                        <a href="#methods" class="btn btn-default">Methods</a>
+                        <a href="#faq" class="btn btn-default">FAQ</a>
                     </div>
                 </div>
             </div>
