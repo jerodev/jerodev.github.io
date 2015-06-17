@@ -90,3 +90,14 @@ body, html {
 #panel-right table code {
     white-space: nowrap;
 }
+
+#panel-right .panel {
+    box-shadow: none;
+}
+#panel-right .panel-heading {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#panel-right .panel-body {
+    padding-top: 5px;
+}
