@@ -59,11 +59,18 @@
                         <a href="#introduction" class="btn btn-default">Introduction</a>
                         <a href="#examples" class="btn btn-default">Examples</a>
                         <a href="#options" class="btn btn-default">Options</a>
+                        <a href="#methods" class="btn btn-default">Methods</a>
                         <a href="#faq" class="btn btn-default">FAQ</a>
                     </div>
                     <div class="buttons">
                         <a data-style="mega" data-icon="octicon-cloud-download" href="https://github.com/jerodev/jquery-myselect/archive/master.zip" class="github-button">Download</a>
                         <a data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/jerodev/jquery-myselect#stargazers_count" data-count-href="/jerodev/jquery-myselect/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/jerodev/jquery-myselect" class="github-button">Star</a>
+                    </div>
+                    <div class="bottom">
+                        &copy; 2015 Jeroen Deviaene<br />
+                        <a href="https://github.com/jerodev/jerodev.github.io/tree/master/jquery-myselect" target="_blank">
+                            Contribute to the documentation
+                        </a>
                     </div>
                 </div>
             </div>
@@ -329,6 +336,38 @@ $("select").myselect({
                                     <td>
                                         The amount of elements that needs to be selected before 
                                         <code>placeholder_x_selected</code> is displayed.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    
+                        <h3 name="methods">Methods</h3>
+                        <p>
+                            Myselect has several methods that allow you to manipulate the selectbox.
+                            Here is a list of all methods.
+                        </p>
+                        
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th><code>$("select").myselect("destroy")</code></th>
+                                    <td>
+                                        Calling this function will remove the myselect box and show the 
+                                        default select box from html.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><code>$("select").myselect("rebuild")</code></th>
+                                    <td>
+                                        This function will rebuild the myselect box, adding any new items
+                                        to the select box. Selected options will remain selected.
                                     </td>
                                 </tr>
                             </tbody>

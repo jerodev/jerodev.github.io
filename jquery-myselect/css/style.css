@@ -79,6 +79,14 @@ body, html {
     margin-bottom: 15px;
 }
 
+#panel-left .bottom {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    
+    font-size: .8em;
+}
+
 #panel-right {
     float: right;
     padding-right: 0;
