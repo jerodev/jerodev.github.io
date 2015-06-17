@@ -3,6 +3,15 @@ body, html {
     background-color: #fafafa;
 }
 
+.github-fork {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    
+    border: 0;
+}
+
 .well {
     background-color: #fff;
 }
@@ -100,4 +109,47 @@ body, html {
 }
 #panel-right .panel-body {
     padding-top: 5px;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 80px;
+    }
+    
+    .github-fork {
+        z-index: 102;
+    }
+    
+    #panel-left {
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 101;
+        
+        width: 100%;
+        height: 60px;
+        
+        background-color: #fff;
+    }
+    
+    #panel-left .well {
+        border-right: 0;
+    }
+    
+    #panel-left h2 {
+        display: none;
+    }
+    
+    #panel-left .btn-group-vertical {
+        max-height: 0;
+        overflow: hidden;
+    }
+    
+    #panel-left .buttons {
+        display: none;
+    }
+    
+    #panel-right {
+        float: left;
+    }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>jQuery MySelect - Your own multiselect library</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/jquery-myselect.js"></script>
@@ -35,14 +36,17 @@
                                 return $(o).text();
                             }).join(", ")
                         );
-                    }
+                    },
+                    width: "100%"
                 });
                 
             });
         </script>
     </head>
     <body>
-        <a target="_blank" href="https://github.com/jerodev/jquery-myselect/"><img style="position:fixed;top:0;right:0;border:0;z-index:99" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <a target="_blank" href="https://github.com/jerodev/jquery-myselect/" class="github-fork">
+            <img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+        </a>
         
         <div class="container-fluid">
             <div class="col-sm-3" id="panel-left">
@@ -146,7 +150,7 @@
                             </select>
                         </div>
                         <div class="col-sm-8">
-<pre>
+<pre class="hidden-xs">
 $("select").myselect({ 
     width: '100%',
     placeholder: 'Countries in Europe'
@@ -196,7 +200,7 @@ $("select").myselect({
                             </select>
                         </div>
                         <div class="col-sm-8">
-<pre>
+<pre class="hidden-xs">
 $("select").myselect({ 
     onChange: function(select) {
         $('.example_2_onchange').text(
@@ -210,123 +214,126 @@ $("select").myselect({
                         </div>
                     </div>
                     
-                    <h3 name="options">Options</h3>
-                    <p>
-                        There are a list of options you can use to modify the library to your needs. Here you can 
-                        find a list with all of them.
-                    </p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Option</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>caret_down</th>
-                                <td><code>"&#9660;"</code> <small>(&amp;#9660;)</small></td>
-                                <td>The icon used for the select caret pointing down</td>
-                            </tr>
-                            <tr>
-                                <th>caret_up</th>
-                                <td><code>"&#9650;"</code> <small>(&amp;#9650;)</small></td>
-                                <td>The icon used for the select caret pointing down</td>
-                            </tr>
-                            <tr>
-                                <th>closeOnClick</th>
-                                <td><code>false</code></td>
-                                <td>
-                                    Automaticly close the select box after selecting an item.
-                                    This is only available for single selects.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>container_height</th>
-                                <td><code>"34px"</code></td>
-                                <td>
-                                    The height of the container element. This is the element
-                                    the user clikcs on to open the dropdown.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>delimiter</th>
-                                <td><code>", "</code></td>
-                                <td>
-                                    This is the delimiter used to put between selected elements
-                                    in the container element.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>items_max_height</th>
-                                <td><code>"240px"</code></td>
-                                <td>
-                                    The max height of the items container. When the height of the
-                                    elements is higher than this, a scroll bar will appear on the
-                                    right side of the container.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>placeholder</th>
-                                <td><code>" - Nothing selected - "</code></td>
-                                <td>
-                                    This is the default placeholder for all select boxes when nothing
-                                    is selected. The value can be overridden for every select box by 
-                                    adding a <code>data-placeholder</code> to the select element.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>onChange</th>
-                                <td><code>null</code></td>
-                                <td>
-                                    A callback function that is called when the selected items of a select
-                                    box have changed. The function has two parameters, <code>select</code>
-                                    and <code>container</code>.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>onRender</th>
-                                <td><code>null</code></td>
-                                <td>
-                                    This function is called right before the myselect box starts rendering
-                                    The function has one parameter, <code>select</code>.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>onRendered</th>
-                                <td><code>null</code></td>
-                                <td>
-                                    This function is called after the myselect box has been completely rendered.
-                                    The function has two parameters, <code>select</code> and <code>container</code>.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>placeholder_x_selected</th>
-                                <td><code>"# selected"</code></td>
-                                <td>
-                                    The placeholder when more then <code>x_selected_after</code> elements
-                                    are selected. The <code>#</code> in the string gets replaced by the 
-                                    number of selected elements.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>width</th>
-                                <td><code>"240px"</code></td>
-                                <td>
-                                    The width for both the container and the item container.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>x_selected_after</th>
-                                <td><code>4</code></td>
-                                <td>
-                                    The amount of elements that needs to be selected before 
-                                    <code>placeholder_x_selected</code> is displayed.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="hidden-xs">
+                        <h3 name="options">Options</h3>
+                        <p>
+                            There are a list of options you can use to modify the library to your needs. Here you can 
+                            find a list with all of them.
+                        </p>
+    
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Option</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>caret_down</th>
+                                    <td><code>"&#9660;"</code> <small>(&amp;#9660;)</small></td>
+                                    <td>The icon used for the select caret pointing down</td>
+                                </tr>
+                                <tr>
+                                    <th>caret_up</th>
+                                    <td><code>"&#9650;"</code> <small>(&amp;#9650;)</small></td>
+                                    <td>The icon used for the select caret pointing down</td>
+                                </tr>
+                                <tr>
+                                    <th>closeOnClick</th>
+                                    <td><code>false</code></td>
+                                    <td>
+                                        Automaticly close the select box after selecting an item.
+                                        This is only available for single selects.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>container_height</th>
+                                    <td><code>"34px"</code></td>
+                                    <td>
+                                        The height of the container element. This is the element
+                                        the user clikcs on to open the dropdown.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>delimiter</th>
+                                    <td><code>", "</code></td>
+                                    <td>
+                                        This is the delimiter used to put between selected elements
+                                        in the container element.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>items_max_height</th>
+                                    <td><code>"240px"</code></td>
+                                    <td>
+                                        The max height of the items container. When the height of the
+                                        elements is higher than this, a scroll bar will appear on the
+                                        right side of the container.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>placeholder</th>
+                                    <td><code>" - Nothing selected - "</code></td>
+                                    <td>
+                                        This is the default placeholder for all select boxes when nothing
+                                        is selected. The value can be overridden for every select box by 
+                                        adding a <code>data-placeholder</code> to the select element.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onChange</th>
+                                    <td><code>null</code></td>
+                                    <td>
+                                        A callback function that is called when the selected items of a select
+                                        box have changed. The function has two parameters, <code>select</code>
+                                        and <code>container</code>.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onRender</th>
+                                    <td><code>null</code></td>
+                                    <td>
+                                        This function is called right before the myselect box starts rendering
+                                        The function has one parameter, <code>select</code>.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onRendered</th>
+                                    <td><code>null</code></td>
+                                    <td>
+                                        This function is called after the myselect box has been completely rendered.
+                                        The function has two parameters, <code>select</code> and <code>container</code>.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>placeholder_x_selected</th>
+                                    <td><code>"# selected"</code></td>
+                                    <td>
+                                        The placeholder when more then <code>x_selected_after</code> elements
+                                        are selected. The <code>#</code> in the string gets replaced by the 
+                                        number of selected elements.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>width</th>
+                                    <td><code>"240px"</code></td>
+                                    <td>
+                                        The width for both the container and the item container.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>x_selected_after</th>
+                                    <td><code>4</code></td>
+                                    <td>
+                                        The amount of elements that needs to be selected before 
+                                        <code>placeholder_x_selected</code> is displayed.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     
                     <h3 name="faq">FAQ</h3>
                     <div class="panel panel-default">
