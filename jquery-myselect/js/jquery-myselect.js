@@ -1,6 +1,16 @@
-"use strict";
+/**
+ * jQuery myselect v0.1
+ *
+ * Author:  Jeroen Deviaene
+ * Docs:    https://jerodev.github.io/jquery-myselect
+ *
+ * Released under the MIT license
+ * https://github.com/jerodev/jquery-myselect/blob/master/LICENCE.md
+ */
 
 (function( $ ) {
+    
+    "use strict";
 
     /**
      *  The default options for this plugin
@@ -19,7 +29,7 @@
         
         onChange: null,
         onRender: null,
-        onRendered: null,
+        onRendered: null
     };
 
 
@@ -28,8 +38,18 @@
      */
     $.fn.myselect = function( options ){
         
-        // Extend the provided settings
-        var settings = $.extend( settings, defaults, options );
+        // Get the myselect settings
+        var settings = {};
+        if ( !( typeof options == "string" ) )
+        {
+            // Extend the provided settings
+            settings = $.extend( settings, defaults, options );
+        }
+        else if ( $( this ).data( 'myselect' ) )
+        {
+            // Find the existing settings
+            settings = $( this ).data( 'myselect' );
+        }
         
         // Add body events for closing the dropdown on blur
         $(document).unbind( 'click' );
@@ -38,23 +58,18 @@
         // Make a new select box for each element
         return this.each(function() {
             
-            // Call the render event
-            callCallback( settings.onRender, this );
-            
-            // Add the options to the select element
-            $( this ).data( 'myselect', settings );
-            
-            // Build a new selectbox
-            var html = buildSelect( this, settings );
-            
-            // Hide the current selectobx
-            $( this ).hide();
-            
-            // Add the code for the new selectbox
-            html.insertAfter( this );
-            
-            // Call the rendered event
-            callCallback( settings.onRendered, this, html.get(0) );
+            if ( typeof options == "string" )
+            {
+                callMethod( options, this, settings );
+            }
+            else
+            {
+                // Add the options to the select element
+                $( this ).data( 'myselect', settings );
+                
+                // Build the select box
+                buildSelect( this, settings );
+            }
             
         });
         
@@ -62,9 +77,34 @@
     
     
     /**
-     *  Build a new select box and return the html code
+     *  Get the myselectbox and add it to the DOM
      */
     function buildSelect( select, settings ) {
+        // Call the render event
+        callCallback( settings.onRender, select );
+
+        // Remove existing myselect boxes for this select before rendering a new one.
+        if ( $( select ).next().is( '.myselect-container' ) )
+            $( select ).next().remove();
+        
+        // Build a new selectbox
+        var html = buildSelectHtml( select, settings );
+        
+        // Hide the current selectobx
+        $( select ).hide();
+        
+        // Add the code for the new selectbox
+        html.insertAfter( select );
+        
+        // Call the rendered event
+        callCallback( settings.onRendered, select, html.get( 0 ) );
+    }
+    
+    
+    /**
+     *  Build a new select box and return the html code
+     */
+    function buildSelectHtml( select, settings ) {
         
         // Start with a container
         var container = $( "<div class='myselect-container'></div>" )
@@ -108,15 +148,15 @@
         var itemContainer = $( "<ul class='itemContainer'></ul>" ).css('max-height', settings.items_max_height);
         
         // Add the items
-        for (var i = 0; i < $( select ).find( 'option' ).length; i++)
+        for ( var i = 0; i < $( select ).find( 'option' ).length; i++ )
         {
             var option = $( select ).find( 'option' ).eq( i );
             
             itemContainer.append(
                 $( "<li></li>" ).html( option.html() )
                     .attr( 'data-value', option.attr( 'value' ) )
-                    .addClass(option.is(['selected']) ? 'selected' : '')
-                    .click(clickItem)
+                    .addClass( option.is( '[selected]' ) ? 'selected' : '' )
+                    .click( clickItem )
             );
         }
         
@@ -130,8 +170,49 @@
         // Return the container and all components
         return container;
     }
+
+    
+    /**
+     *  Call a callback function, if it exists
+     */
+    function callCallback( callback, select, container ) {
+        // If this callback is set, execute it!
+        if ( callback )
+            callback( select, container );
+    }
     
     
+    /**
+     *  Call a special method on the myselect box
+     */
+    function callMethod( method, select, settings ) {
+        switch ( method )
+        {
+            case "destroy":
+                callMethodDestroy( select );
+                break;
+            
+            case "rebuild": 
+                buildSelect( select, settings );
+                break;
+            
+            default:
+                break;
+        }
+    }
+    
+    
+    /**
+     *  Destroy an existing myselect box and show the default select
+     */
+    function callMethodDestroy( select ) {
+        if ( $( select ).data( 'myselect' ) )
+        {
+            $( select ).next( '.myselect-container' ).remove();
+            $( select ).data( 'myselect', null );
+            $( select ).show();
+        }
+    }
     
     
     /**
@@ -155,7 +236,7 @@
         
         // Toggle the caret
         container.find( '.select-caret' )
-            .html( open ? getSettings(select).caret_down : getSettings(select).caret_up );
+            .html( open ? getSettings( select ).caret_down : getSettings( select ).caret_up );
         
         // Toggle the open class
         if ( open )
@@ -165,26 +246,6 @@
         else
         {
             container.addClass( "open" );
-        }
-    }
-    
-    
-    /**
-     *  Close all dropdowns
-     */
-    function closeSelects( $select ) {
-        if ($select instanceof jQuery)
-        {
-            var container = $($select).next('.myselect-container');
-            container.removeClass( 'open' );
-            container.find( '.select-caret' ).html( getSettings($select).caret_down );
-        }
-        else
-        {
-            $( ".myselect-container" ).each(function() {
-                $( this ).removeClass( 'open' );
-                $( this ).find( '.select-caret' ).html( getSettings($(this).prev('select')).caret_down );
-            });
         }
     }
     
@@ -228,13 +289,13 @@
         if ( $options.length )
         {
             // Display 'x selected' after y elements have been selected
-            if ( $options.length <= getSettings($select).x_selected_after )
+            if ( $options.length <= getSettings( $select ).x_selected_after )
             {
-                $content.find("span").text( $.map( $options, function( o ) { return o.innerHTML; }).join( getSettings($select).delimiter ) );
+                $content.find("span").text( $.map( $options, function( o ) { return o.innerHTML; }).join( getSettings( $select ).delimiter ) );
             }
             else
             {
-                $content.find("span").text( getSettings($select).placeholder_x_selected.replace( /#/, $options.length ) );
+                $content.find("span").text( getSettings( $select ).placeholder_x_selected.replace( /#/, $options.length ) );
             }
             
             
@@ -256,23 +317,33 @@
     
     
     /**
+     *  Close all dropdowns
+     */
+    function closeSelects( $select ) {
+        if ( $select instanceof jQuery )
+        {
+            var container = $( $select ).next('.myselect-container');
+            container.removeClass( 'open' );
+            container.find( '.select-caret' ).html( getSettings( $select ).caret_down );
+        }
+        else
+        {
+            $( ".myselect-container" ).each(function() {
+                $( this ).removeClass( 'open' );
+                $( this ).find( '.select-caret' ).html( getSettings( $( this ).prev( 'select' ) ).caret_down );
+            });
+        }
+    }
+    
+    
+    /**
      *  Get the placeholder for this select element
      */
     function getPlaceholder( $select ) {
         if ( $select.attr( 'data-placeholder' ) )
             return $select.data( 'placeholder' );
         else
-            return getSettings($select).placeholder;
-    }
-    
-    
-    /**
-     *  Call a callback function, if it exists
-     */
-    function callCallback( callback, select, container ) {
-        // If this callback is set, execute it!
-        if ( callback )
-            callback( select, container );
+            return getSettings( $select ).placeholder;
     }
     
     
@@ -281,7 +352,7 @@
      */
     function getSettings( select ) {
         // Get the options object
-        return $(select).data('myselect');
+        return $( select ).data( 'myselect' );
     }
 
-}(jQuery));
+}( jQuery ) );
