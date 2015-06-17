@@ -62,6 +62,14 @@ body, html {
     text-align: left;
 }
 
+#panel-left .buttons {
+    padding: 25px 15px;
+}
+#panel-left .buttons iframe {
+    display: block;
+    margin-bottom: 15px;
+}
+
 #panel-right {
     float: right;
     padding-right: 0;
