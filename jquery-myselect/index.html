@@ -20,6 +20,11 @@
                     }, 500);
                 });
                 
+                // If we have a hash in the url, scroll to that position
+                if (location.hash)
+                {
+                    $("a[href='" + location.hash + "']").click();
+                }
                 
                 // First example
                 $(".example_1").myselect({ 
@@ -168,6 +173,10 @@ $("select").myselect({
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Events</h4>
+                            <p>
+                                myselect has different events for handling changes. 
+                                In this example I output the selected elements to the dom.
+                            </p>
                         </div>
                         <div class="col-sm-4">
                             <div class="row">
